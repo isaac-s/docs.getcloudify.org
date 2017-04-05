@@ -14,7 +14,6 @@ weight: 200
 The OpenStack plugin allows users to use an OpenStack based cloud infrastructure for deploying services and applications.
 For more information about OpenStack, please refer to: [https://www.openstack.org/](https://www.openstack.org/).
 
-
 # Plugin Requirements
 
 * Python versions:
@@ -33,17 +32,12 @@ For more information about OpenStack, please refer to: [https://www.openstack.or
 The Openstack plugin has been officially tested with Openstack Mitaka and Kilo.
 It was also used to be tested against Icehouse and Juno.
 
-\* support on Mitaka and Liberty currently requires the Keystone URL in [Openstack Configuration](#openstack-configuration) to be explicitly set to `/v2.0`: eg `http://192.0.2.200:5000/v2.0` instead of just `http://192.0.2.200:5000`.
-
-
 The Openstack plugin uses various Openstack clients packages. The versions used in Openstack Plugin are as follows:
 
   * [Nova client](https://github.com/openstack/python-novaclient) - 2.26.0
   * [Neutron client](https://github.com/openstack/python-neutronclient) - 2.6.0
   * [Cinder client](https://github.com/openstack/python-cinderclient) - 1.2.2
   * [Keystone client](https://github.com/openstack/python-keystoneclient) - 1.6.0
-
-
 
 # Types
 
@@ -107,8 +101,6 @@ Two additional runtime-properties are available on node instances of this type o
   * `ip` the private IP (ip on the internal network) of the server.
   * `password` the password for the administrator user. This runtime property is only available if the `use_password` property is set to `true`.
 
-
-
 ## cloudify.openstack.nodes.WindowsServer
 
 **Derived From:** [cloudify.openstack.nodes.Server](#cloudifyopenstackserver)
@@ -116,8 +108,6 @@ Two additional runtime-properties are available on node instances of this type o
 This type has the same properties and operations-mapping as the type above (as it derives from it), yet it overrides some of the agent and plugin installations operations-mapping derived from the built-in cloudify.nodes.Compute type. Use this type when working with a Windows server.
 
 Additionally, the default value for the `use_password` property is overridden for this type, and is set to `true`. When using an image with a preset password, it should be modified to `false`.
-
-
 
 ## cloudify.openstack.nodes.KeyPair
 
@@ -150,8 +140,6 @@ Additionally, the default value for the `use_password` property is overridden fo
 
 See the [common Runtime Properties section](#runtime-properties).
 
-
-
 ## cloudify.openstack.nodes.Subnet
 
 **Derived From:** cloudify.nodes.Subnet
@@ -182,8 +170,6 @@ See the [common Runtime Properties section](#runtime-properties).
 **Attributes:**
 
 See the [common Runtime Properties section](#runtime-properties).
-
-
 
 ## cloudify.openstack.nodes.SecurityGroup
 
@@ -228,8 +214,6 @@ See the [common Runtime Properties section](#runtime-properties).
 **Attributes:**
 
 See the [common Runtime Properties section](#runtime-properties).
-
-
 
 ## cloudify.openstack.nodes.Router
 
@@ -278,8 +262,6 @@ See the [common Runtime Properties section](#runtime-properties).
 
 See the [common Runtime Properties section](#runtime-properties).
 
-
-
 ## cloudify.openstack.nodes.Port
 
 **Derived From:** cloudify.nodes.Root
@@ -313,8 +295,6 @@ See the [common Runtime Properties section](#runtime-properties).
 
 Additionally, the Port's fixed-IP is available via the `fixed_ip_address` runtime property.
 
-
-
 ## cloudify.openstack.nodes.Network
 
 **Derived From:** cloudify.nodes.Network
@@ -341,8 +321,6 @@ Additionally, the Port's fixed-IP is available via the `fixed_ip_address` runtim
 **Attributes:**
 
 See the [common Runtime Properties section](#runtime-properties).
-
-
 
 ## cloudify.openstack.nodes.FloatingIP
 
@@ -379,7 +357,6 @@ See the [common Runtime Properties section](#runtime-properties).
 
 Note that the actual IP is available via the `floating_ip_address` runtime-property.
 
-
 ## cloudify.openstack.nodes.Volume
 
 **Derived From:** cloudify.nodes.Volume
@@ -408,8 +385,6 @@ Note that the actual IP is available via the `floating_ip_address` runtime-prope
 **Attributes:**
 
 See the [common Runtime Properties section](#runtime-properties).
-
-
 
 ## cloudify.openstack.nova_net.nodes.FloatingIP
 
@@ -444,7 +419,6 @@ This is a Nova-net specific type. See more in the [Nova-net Support section](#no
 See the [common Runtime Properties section](#runtime-properties).
 
 Note that the actual IP is available via the `floating_ip_address` runtime-property.
-
 
 ## cloudify.openstack.nova_net.nodes.SecurityGroup
 
@@ -487,7 +461,6 @@ This is a Nova-net specific type. See more in the [Nova-net Support section](#no
 
 See the [common Runtime Properties section](#runtime-properties).
 
-
 # Relationships
 
 {{% gsInfo title="Information" %}}
@@ -495,7 +468,6 @@ Not all relationships have built-in types (i.e., some types may simply get conne
 
 Some relationships take effect in non-relationship operations, e.g. a subnet which is connected to a network actually gets connected on subnet's creation (in the `cloudify.interfaces.lifecycle.create` operation) and not in a `cloudify.interfaces.relationship_lifecycle.establish` operation - this occurs whenever the connection information is required on resource creation.
 {{% /gsInfo %}}
-
 
 ## cloudify.openstack.port_connected_to_security_group
 
@@ -506,7 +478,6 @@ Some relationships take effect in non-relationship operations, e.g. a subnet whi
   * `cloudify.interfaces.relationship_lifecycle.establish`: sets the security group on the port.
     * **Inputs:**
       * `openstack_config` see the [Openstack Configuration](#openstack-configuration).
-
 
 ## cloudify.openstack.subnet_connected_to_router
 
@@ -520,7 +491,6 @@ Some relationships take effect in non-relationship operations, e.g. a subnet whi
   * `cloudify.interfaces.relationship_lifecycle.unlink`: disconnects the subnet from the router.
     * **Inputs:**
       * `openstack_config` see the [Openstack Configuration](#openstack-configuration).
-
 
 ## cloudify.openstack.server_connected_to_floating_ip
 
@@ -536,7 +506,6 @@ Some relationships take effect in non-relationship operations, e.g. a subnet whi
     * **Inputs:**
       * `openstack_config` see the [Openstack Configuration](#openstack-configuration).
 
-
 ## cloudify.openstack.server_connected_to_security_group
 
 **Description:** A relationship for setting a security group on a server.
@@ -550,7 +519,6 @@ Some relationships take effect in non-relationship operations, e.g. a subnet whi
     * **Inputs:**
       * `openstack_config` see the [Openstack Configuration](#openstack-configuration).
 
-
 ## cloudify.openstack.volume_attached_to_server
 
 **Description:** A relationship for attaching a volume to a server.
@@ -563,7 +531,6 @@ Some relationships take effect in non-relationship operations, e.g. a subnet whi
   * `cloudify.interfaces.relationship_lifecycle.unlink`: detaches the volume from the server.
     * **Inputs:**
       * `openstack_config` see the [Openstack Configuration](#openstack-configuration).
-
 
 ## cloudify.openstack.server_connected_to_port
 
@@ -583,7 +550,6 @@ Note that when using this relationship in combination with the port type's prope
 
 *Note*: This relationship has no operations associated with it; The port will use this relationship to automatically connect to the subnet upon port creation.
 
-
 ## cloudify.openstack.port_connected_to_floating_ip
 
 **Description:** A relationship for associating a floating ip with a port. If that port is later connected to a server, the server will be accessible via the floating IP.
@@ -597,7 +563,6 @@ Note that when using this relationship in combination with the port type's prope
     * **Inputs:**
       * `openstack_config` see the [Openstack Configuration](#openstack-configuration).
 
-
 # Types' Common Behaviors
 
 ## Validations
@@ -608,7 +573,6 @@ All types offer the same base functionality for the `cloudify.interfaces.validat
 
   * When [using an existing resource](#using-existing-resources), the validation ensures the resource indeed exists.
 
-
 ## Runtime Properties
 
 Node instances of any of the types defined in this plugin get set with the following runtime properties during the `cloudify.interfaces.lifecycle.create` operation:
@@ -618,7 +582,6 @@ Node instances of any of the types defined in this plugin get set with the follo
   * `external_name` the Openstack name of the resource
 
 The only exceptions are the two *floating-ip* types - Since floating-ip objects on Openstack don't have a name, the `external_name` runtime property is replaced with the `floating_ip_address` one, which holds the object's actual IP address.
-
 
 ## Default Resource Naming Convention
 
@@ -637,9 +600,6 @@ node_templates:
 
 Yet without setting the `resource_id` property, then the server's name on Openstack will be `server_my-deployment_myserver_XXXXX` (where the XXXXX is the autogenerated part of the node instance's ID).
 
-
-
-
 # Using Existing Resources
 
 It is possible to use existing resources on Openstack - whether these have been created by a different Cloudify deployment or not via Cloudify at all.
@@ -651,7 +611,6 @@ All Cloudify Openstack types have a property named `use_external_resource`, whos
 2. If no resource was found, the plugin will use the value of the `resource_id` property to look for the resource by ID instead. If a resource still isn't found, an error is raised.
 
 3. If a single resource was found, the plugin will use that resource, and set the node instance with the appropriate runtime properties according to the resource's data.
-
 
 The semantics of other operations are affected as well:
 
@@ -665,15 +624,11 @@ The semantics of other operations are affected as well:
 
 * The `cloudify.interfaces.relationship_lifecycle.establish` operation will behave as normal if the related node is not set with `use_external_resource` as `true`; However if both nodes have this property set to `true`, the operation will only attempt to verify that they're indeed "connected" on Openstack as well ("connected" in this case also refers to a security-group imposed on a server, floating-ip associated with a server, etc.).
 
-
 ## Notes
 
 * As mentioned in the [Relationships section](#relationships), some relationships take effect in non-relationship operations. When `use_external_resource` is set to `true`, the existence of such connections is validated as well.
 
 * Using an existing resource only makes sense for single-instance nodes.
-
-
-
 
 # Openstack Configuration
 
@@ -726,7 +681,6 @@ custom_configuration:
     ..
 {{< /gsHighlight >}}
 
-
 The environment variables mentioned in (1) are the standard Openstack environment variables equivalent to the ones in the JSON file or `openstack_config` property. In their respective order, they are:
 
 * `OS_USERNAME`
@@ -739,12 +693,9 @@ The environment variables mentioned in (1) are the standard Openstack environmen
 
 *Note*: `custom_configuration` doesn't have an equivalent standard Openstack environment variable.
 
-
 {{% gsTip title="Tip" %}}
 The Openstack manager blueprint stores the Openstack configuration used for the bootstrap process in a JSON file as described in (2) at `~/openstack-config.json`. Therefore, if they've been used for bootstrap, the Openstack configuration for applications isn't required as the plugin will default to these same settings.
 {{% /gsTip %}}
-
-
 
 # Nova-net Support
 
@@ -756,12 +707,9 @@ There are, however, some resource types whose API is available via both the Nova
 
 For these resource types, the Openstack plugin defines two separate types - one in the plugin's standard types namespace (`cloudify.openstack.nodes.XXX`), which uses the newer and extended API via the Neutron service; and Another in a special namespace (`cloudify.openstack.nova_net.nodes.XXX`), which uses the older API via the Nova service. This is why you may notice two separate types defined for [Floating](#cloudifyopenstacknodesfloatingip) [IP](#cloudifyopenstacknovanetnodesfloatingip), as well as for [Security](#cloudifyopenstacknodessecuritygroup) [Group](#cloudifyopenstacknovanetnodessecuritygroup).
 
-
 To summarize, ensure that when working in a Nova-net Openstack environment, Neutron types aren't used - these include all types whose resources' APIs are natively available only via the Network API, as well as the types which are in the `cloudify.openstack.nova_net.Nodes` namespace.
 
 On the opposite side, when using an Openstack environment which supports Neutron, it's recommended to use the Neutron-versions of the relevant types (i.e. avoid any types defined under the `cloudify.openstack.nova_net.Nodes` namespace), as they offer more advanced capabilities. However, it's important to mention that this is not required, and using the Nova-versions of some types in a Neutron-enabled environment is possible and will work as well.
-
-
 
 # Examples
 
@@ -770,8 +718,6 @@ On the opposite side, when using an Openstack environment which supports Neutron
 This example will show how to use most of the types in this plugin, as well as how to make the relationships between them.
 
 We'll see how to create a server with a security group set on it and a floating_ip associated to it, on a subnet in a network.
-
-
 
 {{% gsCloak "Example I" %}}
 The following is an excerpt from the blueprint's `blueprint`.`nodes` section:
@@ -786,12 +732,10 @@ my_floating_ip:
           args:
             floating_network_name: Ext-Net
 
-
 my_network:
   type: cloudify.openstack.nodes.Network
   properties:
     resource_id: my_network_openstack_name
-
 
 my_subnet:
   type: cloudify.openstack.nodes.Subnet
@@ -814,7 +758,6 @@ my_subnet:
     - target: my_network
       type: cloudify.relationships.contained_in
 
-
 my_security_group:
   type: cloudify.openstack.nodes.SecurityGroup
   properties:
@@ -822,7 +765,6 @@ my_security_group:
     rules:
       - remote_ip_prefix: 0.0.0.0/0
         port: 8080
-
 
 my_server:
   type: cloudify.openstack.nodes.Server
@@ -855,13 +797,9 @@ my_server:
 Node by node explanation:
 
 1. Creates a floating IP, whose node name is `my_floating_ip`, and whose floating_network_name is `Ext-Net` (This value represents the name of the external network).
-
 2. Creates a network, whose node name is `my_network`, and whose name on Openstack is `my_network_openstack_name`.
-
 3. Creates a subnet, whose node name is `my_subnet`, and whose name on Openstack is `my_subnet_openstack_name`. The subnet's address range is defined to be 1.2.3.0 - 1.2.3.255 using the `cidr` parameter, and the subnet's IP version is set to version 4. The subnet will be set on the `my_network_openstack_name` network because of the relationship to the `my_network` node.
-
 4. Creates a security_group, whose node name is `my_security_group`, and whose name on Openstack is `my_security_group_openstack_Name`. The security group is set with a single rule, which allows all traffic (since we use the address range `0.0.0.0/0`) to port `8080` (default direction is *ingress*).
-
 5. Creates a server, whose node name is `my_server`, and whose name on openstack is `my_server_openstack_name`. The server is set with an image and flavor IDs. The server is set with multiple relationships:
   - A relationship to the `my_network` node: Through this relationship, the server will be automatically placed on the `my_network_openstack_name` network.
   - A relationship to the `my_subnet` node: This relationship is strictly for ensuring the order of creation is correct, as the server requires the `my_subnet_openstack_name` subnet to exist before it can be created on it.
@@ -869,13 +807,11 @@ Node by node explanation:
   - A relationship with the `my_security_group` node: This relationship will take care of setting the server up with the security group represented by the `my_security_group` node.
 {{% /gsCloak %}}
 
-
 ## Example II
 
 This example will show how to use the `router` and `port` types, as well as some of the relationships that were missing from Example I.
 
 We'll see how to create a server connected to a port, where the port is set on a subnet in a network, and has a security group set on it. Finally, we'll see how this subnet connects to a router and from there to the external network.
-
 
 {{% gsCloak "Example II" %}}
 The following is an excerpt from the blueprint's `blueprint`.`node_templates` section:
@@ -886,7 +822,6 @@ my_network:
   properties:
     resource_id: my_network_openstack_name
 
-
 my_security_group:
   type: cloudify.openstack.nodes.SecurityGroup
   properties:
@@ -894,7 +829,6 @@ my_security_group:
     rules:
       - remote_ip_prefix: 0.0.0.0/0
         port: 8080
-
 
 my_subnet:
   type: cloudify.openstack.nodes.Subnet
@@ -919,7 +853,6 @@ my_subnet:
     - target: my_router
       type: cloudify.openstack.subnet_connected_to_router
 
-
 my_port:
   type: cloudify.openstack.nodes.Port
   properties:
@@ -932,12 +865,10 @@ my_port:
     - target: my_security_group
       type: cloudify.openstack.port_connected_to_security_group
 
-
 my_router:
   type: cloudify.openstack.nodes.Router
   properties:
     resource_id: my_router_openstack_Name
-
 
 my_server:
   type: cloudify.openstack.nodes.Server
@@ -965,26 +896,19 @@ my_server:
 Node by node explanation:
 
 1. Creates a network. See Example I for more information.
-
 2. Creates a security group. See Example I for more information.
-
 3. Creates a subnet. This is again similar to what we've done in Example I. The difference here is that the subnet has an extra relationship set towards a router.
-
 4. Creates a port, whose node name is `my_port`, and whose name on Openstack is `my_port_openstack_name`. The port is set with multiple relationships:
   - A relationship to the `my_network` node: Through this relationship, the port will be automatically placed on the `my_network_openstack_name` network.
   - A relationship to the `my_subnet` node: This relationship is strictly for ensuring the order of creation is correct, as the port requires the `my_subnet_openstack_name` subnet to exist before it can be created on it.
   - A relationship to the `my_security_group` node: This designated relationship type will take care of setting the `my_security_group_openstack_name` security group on the port.
-
 5. Creates a router, whose node name is `my_router`, and whose name on Openstack is `my_router_openstack_name`. The router will automatically have an interface in the external network.
-
 6. Creates a server, whose node name is `my_server`, and whose name on Openstack is *the node's ID* (since no `name` parameter was supplied under the `server` property). The server is set with an image and flavor IDs. It also overrides the `cloudify_agent` property of its parent type to set the username that will be used to connect to the server for installing the Cloudify agent on it. Finally, it is set with a relationship to the `my_port` node: This designated relationship type will take care of connecting the server to `my_port_openstack_name`.
 {{% /gsCloak %}}
-
 
 ## Example III
 
 This example will show how to use the `volume` type, as well as `volume_attached_to_server` relationship.
-
 
 {{% gsCloak "Example III" %}}
 The following is an excerpt from the blueprint's `blueprint`.`node_templates` section:
@@ -1031,12 +955,9 @@ Node by node explanation:
 2. Creates a volume. It is set with a relationship to the `my_server` node: This designated relationship type will take care of attaching the volume to Openstack server node.
 {{% /gsCloak %}}
 
-
-
 ## Example IV
 
 This example will show how to use a Windows server with a Cloudify agent on it.
-
 
 {{% gsCloak "Example IV" %}}
 The following is an excerpt from the blueprint's `blueprint`.`node_templates` section:
@@ -1107,7 +1028,6 @@ Node by node explanation:
   * The worker-installer interface operations are given values for the user and password for the `cloudify_agent` input - the password uses the [get_attribute]({{< relref "blueprints/spec-intrinsic-functions.md#get-attribute" >}}) feature to retrieve the decrypted password from the Server's runtime properties (Note that in this example, only the `install` operation was given with this input, but all of the worker installer operations as well as the plugin installer operations should be given with it).
   * We define custom userdata which configures WinRM and installs Python on the machine (Windows Server 2012 in this example) once it's up. This is required for the Cloudify agent to be installed on the machine.
 {{% /gsCloak %}}
-
 
 # Tips
 
@@ -1218,7 +1138,5 @@ node_templates:
 # Misc
 
 * The plugin's operations are each *transactional* (and therefore also retryable on failures), yet not *idempotent*. Attempting to execute the same operation twice is likely to fail.
-
 * Over this documentation, it's been mentioned multiple times that some configuration-saving information may be available in the Provider Context. The Openstack manager blueprint and Openstack provider both create this relevant information, and therefore if either was used for bootstrapping, the Provider Context will be available for the Openstack plugin to use.
-
-  The exact details of the structure of the Openstack Provider Context are not documented since this feature is going through deprecation and will be replaced with a more advanced one.
+* The exact details of the structure of the Openstack Provider Context are not documented since this feature is going through deprecation and will be replaced with a more advanced one.
